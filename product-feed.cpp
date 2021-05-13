@@ -46,6 +46,29 @@ void subscribeToSeller(int buyerId,int sellerId)
 {
     buyerMap.insert(pair<int,int>(buyerId,sellerId));
 }
+void unsubscribeToSeller(int buyerId,int sellerId)
+{
+    vector<int>sellerIdList = buyerMap[buyerId];
+    vector<int>::iterator i = find(sellerIdList.begin(), sellerIdList.end(), sellerId);
+    sellerIdList.erase(i);
+}
+
+void fetchFeed(int buyerId)
+{
+    vector<int>sellerIdList = buyerMap[buyerId];
+    
+    for(auto sellerId : sellerIdList)
+    {
+        vector<Product>products = sellerMap[sellerId];
+        
+        //display all posted product for this Seller
+        for(auto product : products)
+        {
+            cout<<product.name<<" "<<product.price<<endl;
+        }
+    }
+    
+}
 
 void createSeller(int id,string name)
 {
